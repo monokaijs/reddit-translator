@@ -159,7 +159,7 @@ export function EditablePostContent({
         title="Click to edit"
       >
         <Markdown remarkPlugins={[remarkGfm]}>
-          {isMultiline ? currentPost.selftext : currentPost.selftext.split('\n')[0]}
+          {isMultiline ? currentPost.selftext : currentPost.title}
         </Markdown>
         {currentPost.edited || currentPost.translated && (
           <div className="content-badges">
