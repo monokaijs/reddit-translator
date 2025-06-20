@@ -2,3 +2,7 @@ body {
   margin: 0;
   background-color: #1a1a1b;
 }
+
+a {
+  color: white;
+}

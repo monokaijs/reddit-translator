@@ -1,12 +1,13 @@
-import { useState, useRef, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import type { RootState } from '../store/types';
-import { updateCommentContent, deleteComment } from '../store/slices/appSlice';
-import { updateRecentCommentContent, deleteRecentComment } from '../store/slices/sidebarSlice';
-import { decodeHtmlEntities } from '../utils/redditApi';
+import {useEffect, useRef, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import type {RootState} from '../store/types';
+import {deleteComment, updateCommentContent} from '../store/slices/appSlice';
+import {deleteRecentComment, updateRecentCommentContent} from '../store/slices/sidebarSlice';
 import {processTextForEdit} from '../utils/textUtils';
-import { TranslateButton } from './TranslateButton';
-import type { RedditComment } from '../types/reddit';
+import {TranslateButton} from './TranslateButton';
+import type {RedditComment} from '../types/reddit';
+import Markdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
 
 interface EditableCommentContentProps {
   comment: RedditComment;
@@ -14,9 +15,9 @@ interface EditableCommentContentProps {
 }
 
 export function EditableCommentContent({
-  comment,
-  className = ''
-}: EditableCommentContentProps) {
+                                         comment,
+                                         className = ''
+                                       }: EditableCommentContentProps) {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState('');
@@ -49,7 +50,7 @@ export function EditableCommentContent({
     }
 
     setIsSaving(true);
-    
+
     try {
       // Update current data
       dispatch(updateCommentContent({
@@ -111,20 +112,6 @@ export function EditableCommentContent({
     }
   };
 
-  const renderContent = () => {
-    if (currentComment.body_html && !currentComment.edited && !currentComment.translated) {
-      return (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: decodeHtmlEntities(currentComment.body_html)
-          }}
-        />
-      );
-    } else {
-      return <p>{currentComment.body}</p>;
-    }
-  };
-
   if (isEditing) {
     return (
       <div className={`editable-content editing ${className}`}>
@@ -137,7 +124,7 @@ export function EditableCommentContent({
           rows={Math.max(2, editValue.split('\n').length)}
           disabled={isSaving}
         />
-        
+
         <div className="edit-controls">
           <button
             onClick={handleSave}
@@ -166,7 +153,9 @@ export function EditableCommentContent({
         onClick={handleStartEdit}
         title="Click to edit"
       >
-        {renderContent()}
+        <Markdown remarkPlugins={[remarkGfm]}>
+          {currentComment.body}
+        </Markdown>
         <div className="content-badges">
           {currentComment.edited && (
             <span className="edited-badge" title={`Edited ${new Date(currentComment.edited_at || 0).toLocaleString()}`}>

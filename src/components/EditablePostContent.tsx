@@ -3,10 +3,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import type {RootState} from '../store';
 import {updatePostContent} from '../store/slices/appSlice';
 import {updateRecentPostContent} from '../store/slices/sidebarSlice';
-import {decodeHtmlEntities} from '../utils/redditApi';
 import {processTextForEdit} from '../utils/textUtils';
 import {TranslateButton} from './TranslateButton';
 import type {RedditPost} from '../types/reddit';
+import Markdown from "react-markdown";
+import remarkGfm from 'remark-gfm'
 
 interface EditablePostContentProps {
   post: RedditPost;
@@ -100,26 +101,13 @@ export function EditablePostContent({
     }
   };
 
-  const renderContent = () => {
-    if (field === 'selftext' && currentPost.selftext_html && !currentPost.edited && !currentPost.translated) {
-      return (
-        <div
-          dangerouslySetInnerHTML={{
-            __html: decodeHtmlEntities(currentPost.selftext_html)
-          }}
-        />
-      );
-    } else {
-      return <p>{originalValue || placeholder}</p>;
-    }
-  };
-
   if (isEditing) {
     return (
       <div className={`editable-content editing ${className}`}>
         {isMultiline ? (
           <textarea
             ref={textareaRef}
+            placeholder={placeholder}
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
             onKeyDown={handleKeyDown}
@@ -130,6 +118,7 @@ export function EditablePostContent({
         ) : (
           <input
             ref={inputRef}
+            placeholder={placeholder}
             type="text"
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
@@ -169,7 +158,9 @@ export function EditablePostContent({
         onClick={handleStartEdit}
         title="Click to edit"
       >
-        {renderContent()}
+        <Markdown remarkPlugins={[remarkGfm]}>
+          {isMultiline ? currentPost.selftext : currentPost.selftext.split('\n')[0]}
+        </Markdown>
         <div className="content-badges">
           {currentPost.edited && (
             <span className="edited-badge" title={`Edited ${new Date(currentPost.edited_at || 0).toLocaleString()}`}>
