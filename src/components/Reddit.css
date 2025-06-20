@@ -684,7 +684,7 @@
 }
 
 .revert-all-btn {
-  padding: 6px 12px;
+  padding: 8px 12px;
   background-color: #ff8c00;
   color: white;
   border: none;
@@ -715,6 +715,14 @@
   align-items: center;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+/* Ensure consistent button heights */
+.action-buttons button,
+.translate-all-container button {
+  box-sizing: border-box;
+  line-height: 1.2;
+  min-height: 36px;
 }
 
 /* Input Section */
