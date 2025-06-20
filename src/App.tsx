@@ -28,7 +28,7 @@ function App() {
           </div>
 
           {!data && !loading && !error && (
-            <ExampleUrls onUrlSelect={fetchData}/>
+            <ExampleUrls/>
           )}
 
           {error && (
@@ -64,7 +64,8 @@ function App() {
             </>
           )}
           <div style={{fontSize: 12}}>
-            Made by <a style={{color: 'white'}} href={'https://github.com/monokaijs'}>@monokaijs</a>. Fork me on <a href={'https://github.com/monokaijs/reddit-translator'} style={{color: 'white'}}>GitHub</a>
+            Made by <a style={{color: 'white'}} href={'https://github.com/monokaijs'}>@monokaijs</a>. Fork me on <a
+            href={'https://github.com/monokaijs/reddit-translator'} style={{color: 'white'}}>GitHub</a>
           </div>
         </div>
       </main>
