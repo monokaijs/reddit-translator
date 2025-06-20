@@ -6,3 +6,8 @@ body {
 a {
   color: white;
 }
+
+.post-title p {
+  padding: 0;
+  margin: 0;
+}

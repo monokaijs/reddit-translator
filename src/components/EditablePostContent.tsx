@@ -161,18 +161,20 @@ export function EditablePostContent({
         <Markdown remarkPlugins={[remarkGfm]}>
           {isMultiline ? currentPost.selftext : currentPost.selftext.split('\n')[0]}
         </Markdown>
-        <div className="content-badges">
-          {currentPost.edited && (
-            <span className="edited-badge" title={`Edited ${new Date(currentPost.edited_at || 0).toLocaleString()}`}>
+        {currentPost.edited || currentPost.translated && (
+          <div className="content-badges">
+            {currentPost.edited && (
+              <span className="edited-badge" title={`Edited ${new Date(currentPost.edited_at || 0).toLocaleString()}`}>
               edited
             </span>
-          )}
-          {currentPost.translated && (
-            <span className="translated-badge" title="Content has been translated">
+            )}
+            {currentPost.translated && (
+              <span className="translated-badge" title="Content has been translated">
               translated
             </span>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
       <div className="content-actions">
         <TranslateButton
