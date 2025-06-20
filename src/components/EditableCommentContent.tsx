@@ -4,7 +4,7 @@ import type { RootState } from '../store/types';
 import { updateCommentContent, deleteComment } from '../store/slices/appSlice';
 import { updateRecentCommentContent, deleteRecentComment } from '../store/slices/sidebarSlice';
 import { decodeHtmlEntities } from '../utils/redditApi';
-import {cleanTextForTextarea, processTextForEdit} from '../utils/textUtils';
+import {processTextForEdit} from '../utils/textUtils';
 import { TranslateButton } from './TranslateButton';
 import type { RedditComment } from '../types/reddit';
 

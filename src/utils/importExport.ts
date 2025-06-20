@@ -214,8 +214,6 @@ function formatRedditDataAsText(data: RedditApiResponse, originalUrl: string): s
   }
 
   // Process comments
-  let lastDepth = -1;
-
   comments.forEach((comment, index) => {
     // Skip deleted/removed comments
     if (!comment.body || comment.body === '[deleted]' || comment.body === '[removed]') {
@@ -246,8 +244,6 @@ function formatRedditDataAsText(data: RedditApiResponse, originalUrl: string): s
       // For top-level comments, no additional indentation
       result += `${commentText}\n`;
     }
-
-    lastDepth = comment.depth;
   });
 
   return result;
