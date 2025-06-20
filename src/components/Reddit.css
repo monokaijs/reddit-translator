@@ -29,6 +29,10 @@
   flex-direction: column;
   gap: 3px;
   transition: all 0.3s ease;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
 }
 
 .sidebar-toggle:hover {
@@ -40,6 +44,7 @@
   height: 2px;
   background-color: white;
   transition: all 0.3s ease;
+  flex-shrink: 0;
 }
 
 .sidebar-toggle.open .hamburger-line:nth-child(1) {
@@ -1250,8 +1255,17 @@
   line-height: 1.5;
 }
 
-/* Responsive Design */
+/* Global mobile improvements */
 @media (max-width: 768px) {
+  /* Improve touch interactions */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent zoom on input focus for iOS */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
   .main-content {
     padding: 10px;
   }
@@ -1268,6 +1282,17 @@
   .sidebar-toggle {
     top: 10px;
     left: 10px;
+    bottom: auto;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    /* Improve touch interaction */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  .sidebar-toggle .hamburger-line {
+    width: 18px; /* Slightly smaller for mobile */
   }
 
   .input-group {
@@ -1364,6 +1389,126 @@
     opacity: 1;
     justify-content: flex-end;
   }
+
+  /* Mobile-specific improvements */
+  .fetch-button {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  .url-input {
+    min-height: 44px;
+    padding: 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .translate-btn,
+  .save-btn,
+  .cancel-btn {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  .language-select-btn {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  .translate-all-btn,
+  .revert-all-btn {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  /* Improve mobile header spacing */
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  header h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  header p {
+    font-size: 14px;
+    margin-bottom: 0;
+  }
+
+  /* Additional mobile improvements */
+  .main-content-inner {
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  .reddit-app {
+    overflow-x: hidden;
+  }
+
+  /* Improve mobile text readability */
+  .post-content,
+  .comment-body {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* Better mobile comment threading */
+  .comment {
+    padding-left: 8px;
+    margin-left: 0;
+  }
+
+  .comment .comment {
+    margin-left: 12px;
+  }
+
+  /* Mobile-friendly export button */
+  .export-button {
+    min-height: 44px;
+    padding: 12px 16px;
+  }
+
+  /* Mobile-friendly delete button */
+  .delete-comment-btn {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+  .main-content {
+    padding: 8px;
+  }
+
+  .sidebar {
+    width: 100vw;
+    left: -100vw;
+  }
+
+  .sidebar-toggle {
+    top: 8px;
+    left: 8px;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  .input-section {
+    margin-bottom: 20px;
+  }
+
+  .post-actions {
+    gap: 8px;
+  }
+
+  .action-buttons {
+    gap: 6px;
+  }
 }
 
 @media (min-width: 769px) {
@@ -1385,3 +1530,5 @@
   max-width: 800px;
   margin: 0 auto;
 }
+
+/* Additional mobile improvements - merge with main mobile media query */
